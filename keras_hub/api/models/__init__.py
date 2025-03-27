@@ -233,7 +233,7 @@ from keras_hub.src.models.mobilenet.mobilenet_image_classifier_preprocessor impo
     MobileNetImageClassifierPreprocessor,
 )
 from keras_hub.src.models.modernbert.modernbert_backbone import (
-    ModernBertBackbone,
+    ModernBertBackbone as ModelBertBackbone,
 )
 from keras_hub.src.models.object_detector import ObjectDetector
 from keras_hub.src.models.object_detector import (

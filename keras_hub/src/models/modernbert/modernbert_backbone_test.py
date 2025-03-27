@@ -7,19 +7,18 @@ from keras_hub.src.models.modernbert.modernbert_backbone import (
 from keras_hub.src.tests.test_case import TestCase
 
 
-class ModelBertBackboneTest(TestCase):
+class ModernBertBackboneTest(TestCase):
     def setUp(self):
         self.init_kwargs = {
             "vocabulary_size": 10,
             "num_layers": 2,
-            "num_heads": 2,
-            "hidden_dim": 2,
-            "intermediate_dim": 4,
-            "max_sequence_length": 5,
+            "num_query_heads": 4,
+            "num_key_value_heads": 2,
+            "hidden_dim": 8,
+            "intermediate_dim": 8,
         }
         self.input_data = {
             "token_ids": ops.ones((2, 5), dtype="int32"),
-            "segment_ids": ops.zeros((2, 5), dtype="int32"),
             "padding_mask": ops.ones((2, 5), dtype="int32"),
         }
 
@@ -28,10 +27,7 @@ class ModelBertBackboneTest(TestCase):
             cls=ModernBertBackbone,
             init_kwargs=self.init_kwargs,
             input_data=self.input_data,
-            expected_output_shape={
-                "sequence_output": (2, 5, 2),
-                "pooled_output": (2, 2),
-            },
+            expected_output_shape=(2, 5, 8),
         )
 
     @pytest.mark.large
@@ -69,7 +65,7 @@ class ModelBertBackboneTest(TestCase):
 
     @pytest.mark.extra_large
     def test_all_presets(self):
-        for preset in ModernBertBackbone.presets:
+        for preset in ModernBertBackbone.preset:
             self.run_preset_test(
                 cls=ModernBertBackbone,
                 preset=preset,
